@@ -10,6 +10,27 @@ const MovieDetail = ({ detail }) => {
 
   const checkMovie = storedMovie ? true : false;
 
+  const buttonLogic = () => {
+    if (
+      window.location.pathname === "/my-movie/movie-detail" &&
+      storedMovie.length > 0
+    ) {
+      return (
+        <div>
+          <button onClick={() => deleteMovie(detail.id)}>Remove</button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button disabled={checkMovie} onClick={() => addMovie(detail)}>
+            Add to list
+          </button>
+        </div>
+      );
+    }
+  };
+
   return (
     <>
       <div>
@@ -20,11 +41,7 @@ const MovieDetail = ({ detail }) => {
       <button>
         <Link to='/'>Back</Link>
       </button>
-      {checkMovie ? (
-        <button onClick={() => addMovie(detail)}>Remove</button>
-      ) : (
-        <button onClick={() => addMovie(detail)}>Add to list</button>
-      )}
+      {buttonLogic()}
     </>
   );
 };

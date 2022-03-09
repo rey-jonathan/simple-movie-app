@@ -5,6 +5,13 @@ export default (state, action) => {
         ...state,
         myMovieList: [action.payload, ...state.myMovieList],
       };
+    case "DELETE_MOVIE":
+      return {
+        ...state,
+        myMovieList: state.myMovieList.filter(
+          (movie) => movie.id !== action.payload
+        ),
+      };
     default:
       return state;
   }

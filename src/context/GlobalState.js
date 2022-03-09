@@ -21,13 +21,17 @@ export const GlobalProvider = (props) => {
     dispatch({ type: "ADD_MOVIE", payload: movie });
   };
 
-  const deleteMovie = (movie) => {
-    dispatch({ type: "DELETE_MOVIE", payload: movie });
+  const deleteMovie = (id) => {
+    dispatch({ type: "DELETE_MOVIE", payload: id });
   };
 
   return (
     <GlobalContext.Provider
-      value={{ myMovieList: state.myMovieList, addMovie: addMovie }}
+      value={{
+        myMovieList: state.myMovieList,
+        addMovie,
+        deleteMovie,
+      }}
     >
       {props.children}
     </GlobalContext.Provider>

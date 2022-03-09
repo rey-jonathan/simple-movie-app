@@ -1,31 +1,53 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import styled from "@emotion/styled";
+
 import MovieDetail from "./MovieDetail";
 
 const MovieList = (props) => {
+  const TitleMenu = styled.div`
+    text-align: center;
+  `;
+
+  const MovieContainer = styled.div`
+    align-items: center;
+    display: flex;
+    margin: 20px 0 0 10px;
+  `;
+
+  const Image = styled.img`
+    width: 100px;
+  `;
+
+  const Metadata = styled.div`
+    margin-left: 10px;
+  `;
+
   const handleClick = (event) => {
     props.movie(event);
   };
 
   return (
     <>
-      <div>Movie List</div>
+      <TitleMenu>Movie List</TitleMenu>
       {props.movies
         ? props.movies.map((movie, id) => (
-            <div key={id} style={{ display: "flex" }}>
-              <img src={movie.Poster} alt={movie.Title} />
-              <div>
+            <MovieContainer key={id} style={{ display: "flex" }}>
+              <Image src={movie.Poster} alt={movie.Title} />
+              <Metadata>
                 <h3>{movie.Title}</h3>
                 <h4>{movie.type}</h4>
                 <h5>{movie.year}</h5>
-              </div>
+              </Metadata>
               <div>
-                <button onClick={() => handleClick(movie)}>
-                  <Link to='movie-detail'>View Detail</Link>
-                </button>
+                <Link to='movie-detail'>
+                  <button onClick={() => handleClick(movie)}>
+                    View Detail
+                  </button>
+                </Link>
               </div>
-            </div>
+            </MovieContainer>
           ))
         : ""}
     </>

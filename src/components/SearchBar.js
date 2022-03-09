@@ -1,14 +1,40 @@
 import React from "react";
 
-import { debounce } from "../tools";
+import styled from "@emotion/styled";
 
 const SearchBar = ({ searchTerm, inputHandler }) => {
+  const Container = styled.div`
+    padding: auto;
+    margin: 15px auto;
+    text-align: center;
+  `;
+
+  const Searchbar = styled.input`
+    width: 250px;
+    text-align: center;
+    border-radius: 15px;
+    height: 30px;
+  `;
+
+  const onChangeHandler = (e) => {
+    e.preventDefault();
+
+    inputHandler(e.target.value);
+  };
+
   return (
-    <div>
-      <label>Search:</label>
+    <div style={{ textAlign: "center", margin: "15px auto" }}>
       <input
+        style={{
+          width: "250px",
+          textAlign: "center",
+          borderRadius: "15px",
+          height: "30px",
+        }}
+        type='text'
         value={searchTerm}
-        onChange={(event) => inputHandler(event.target.value)}
+        onChange={onChangeHandler}
+        placeholder='Try "Avenger"'
       ></input>
     </div>
   );

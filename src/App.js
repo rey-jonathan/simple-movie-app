@@ -14,52 +14,32 @@ import MovieDetail from "./components/MovieDetail";
 import { Header, MenuBar } from "./components/styled";
 
 function App() {
-  const dummy = [
-    {
-      id: 1,
-      Title: "Ninja 1",
-      type: "horror",
-      year: "2012",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BMmVkNjVjZTQtNTczYS00ODk5LWFkNjItYjNlMDc5ZjMyYTQwXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id diam vitae nulla euismod maximus. Cras rutrum vehicula consequat. Maecenas lectus magna, suscipit a euismod quis, cursus eu ante. Aenean tempus ex sed pellentesque congue. Maecenas placerat pretium elit et accumsan. Donec porta faucibus dui a luctus. Sed nec lacus lorem. In ut mattis elit. Mauris aliquam ultricies dolor, id blandit nibh egestas sed. Sed faucibus condimentum porttitor. Praesent placerat eu neque sed fermentum. Mauris vel libero vitae ligula commodo condimentum ut et arcu",
-    },
-    {
-      id: 2,
-      Title: "Ninja 2",
-      type: "horror",
-      year: "2012",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNzg3NTQ4NDk5NV5BMl5BanBnXkFtZTgwNzMzNDg4NjE@._V1_SX300.jpg",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id diam vitae nulla euismod maximus. Cras rutrum vehicula consequat. Maecenas lectus magna, suscipit a euismod quis, cursus eu ante. Aenean tempus ex sed pellentesque congue. Maecenas placerat pretium elit et accumsan. Donec porta faucibus dui a luctus. Sed nec lacus lorem. In ut mattis elit. Mauris aliquam ultricies dolor, id blandit nibh egestas sed. Sed faucibus condimentum porttitor. Praesent placerat eu neque sed fermentum. Mauris vel libero vitae ligula commodo condimentum ut et arcu",
-    },
-    {
-      id: 3,
-      Title: "Ninja 3",
-      type: "horror",
-      year: "2012",
-      Poster:
-        "https://m.media-amazon.com/images/M/MV5BNjUzODQ5MDY5NV5BMl5BanBnXkFtZTgwOTc1NzcyMjE@._V1_SX300.jpg",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id diam vitae nulla euismod maximus. Cras rutrum vehicula consequat. Maecenas lectus magna, suscipit a euismod quis, cursus eu ante. Aenean tempus ex sed pellentesque congue. Maecenas placerat pretium elit et accumsan. Donec porta faucibus dui a luctus. Sed nec lacus lorem. In ut mattis elit. Mauris aliquam ultricies dolor, id blandit nibh egestas sed. Sed faucibus condimentum porttitor. Praesent placerat eu neque sed fermentum. Mauris vel libero vitae ligula commodo condimentum ut et arcu",
-    },
-  ];
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState();
   const [searchedMovie, setSearchedMovie] = useState();
   const [selectedMovieID, setSelectedMovieID] = useState();
+  const [loading, setLoading] = useState(true);
 
-  const findMovies = async (searchTerm) => {
-    const url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=9fd56b29`;
+  const findMovies = async (searchTerm, page) => {
+    const url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=9fd56b29&page=${page}`;
 
-    await axios.get(url).then((res) => setSearchedMovie(res.data.Search));
+    await axios
+      .get(url)
+      .then((res) => {
+        setSearchedMovie(res.data.Search);
+        setTotalPage(Math.ceil(res.data.totalResults / 10));
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   useEffect(() => {
-    if (searchTerm) findMovies(searchTerm);
-  }, [searchTerm]);
+    setLoading(true);
+    if (searchTerm || page > 0) findMovies(searchTerm, page);
+  }, [searchTerm, page]);
 
   return (
     <GlobalProvider>
@@ -84,8 +64,12 @@ function App() {
                   inputHandler={(value) => setSearchTerm(value)}
                 />
                 <MovieList
-                  movies={searchedMovie}
+                  movies={searchedMovie ? searchedMovie : ""}
                   movie={(value) => setSelectedMovieID(value)}
+                  onClickNext={() => setPage(page + 1)}
+                  onClickBack={() => setPage(page === 1 ? 1 : page - 1)}
+                  currentPage={page}
+                  totalPage={totalPage}
                 />
               </>
             }

@@ -1,13 +1,9 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-
-import MovieDetail from "./MovieDetail";
 
 import placeholder from "../assets/placeholder.png";
 
 const MovieList = (props) => {
-  console.log(props.movies);
   const TitleMenu = styled.div`
     text-align: center;
     font-size: 30px;
@@ -21,18 +17,17 @@ const MovieList = (props) => {
     flex-wrap: wrap;
     margin: auto;
     color: white;
-    padding: 10px;
+    padding: 15px;
     width: 50%;
     flex-direction: column;
 
     @media (max-width: 420px) {
       width: 85%;
     }
-  `;
 
-  const Movie = styled.div`
-    flex: 50%;
-    width: 100%;
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
   `;
 
   const Image = styled.img`
@@ -45,12 +40,12 @@ const MovieList = (props) => {
   `;
 
   const Metadata = styled.div`
-    margin-left: 10px;
     color: #ffffff;
     text-align: left;
 
-    @media (max-width: 500px) {
+    @media (min-width: 500px) {
       width: 360px;
+      text-align: center;
     }
 
     @media (min-width: 768px) {
@@ -62,13 +57,17 @@ const MovieList = (props) => {
     margin: auto;
 
     @media (min-width: 1200px) {
-      padding-top: 15px;
+      padding-top: 25px;
     }
   `;
 
   const NavButton = styled.div`
-    margin: auto;
+    margin: 10px auto;
     text-align: center;
+
+    & > button {
+      margin: 0 10px;
+    }
   `;
 
   const handleClick = (event) => {

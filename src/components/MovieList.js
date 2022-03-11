@@ -4,8 +4,10 @@ import styled from "@emotion/styled";
 
 import MovieDetail from "./MovieDetail";
 
+import placeholder from "../assets/placeholder.png";
+
 const MovieList = (props) => {
-  console.log(props.totalPage);
+  console.log(props.movies);
   const TitleMenu = styled.div`
     text-align: center;
     font-size: 30px;
@@ -103,7 +105,10 @@ const MovieList = (props) => {
       {props.movies
         ? props.movies.map((movie, id) => (
             <MovieContainer key={id}>
-              <Image src={movie.Poster} alt={movie.Title} />
+              <Image
+                src={movie.Poster === "N/A" ? placeholder : movie.Poster}
+                alt={movie.Title}
+              />
               <Metadata>
                 <h3>{movie.Title}</h3>
                 <h4>Type: {movie.Type}</h4>

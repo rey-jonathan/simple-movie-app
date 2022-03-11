@@ -10,7 +10,7 @@ import MovieList from "./components/MovieList";
 import MyMovie from "./components/MyMovie";
 import MovieDetail from "./components/MovieDetail";
 
-import { Header, MenuBar } from "./components/styled";
+import { MenuBar } from "./components/styled";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,6 +18,7 @@ function App() {
   const [totalPage, setTotalPage] = useState();
   const [searchedMovie, setSearchedMovie] = useState();
   const [selectedMovieID, setSelectedMovieID] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(true);
 
   const findMovies = async (searchTerm, page) => {

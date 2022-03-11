@@ -5,32 +5,15 @@ import styled from "@emotion/styled";
 
 import { GlobalProvider } from "./context/GlobalState";
 
+import "./App.css";
 import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
 import MyMovie from "./components/MyMovie";
 import MovieDetail from "./components/MovieDetail";
 
+import { Header, MenuBar } from "./components/styled";
+
 function App() {
-  const MenuBar = styled.div`
-    text-align: center;
-
-    & > label {
-      color: black;
-
-      :active {
-        color: red;
-      }
-
-      :visited {
-        color: black;
-      }
-    }
-
-    & > label > :nth-of-type(1) {
-      margin-right: 10px;
-    }
-  `;
-
   const dummy = [
     {
       id: 1,
@@ -66,23 +49,16 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedMovie, setSearchedMovie] = useState();
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedMovieID, setSelectedMovieID] = useState();
 
   const findMovies = async (searchTerm) => {
     const url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=9fd56b29`;
 
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data) {
-          setSearchedMovie(data.Search);
-        }
-      });
+    await axios.get(url).then((res) => setSearchedMovie(res.data.Search));
   };
 
   useEffect(() => {
-    // if (searchTerm) findMovies(searchTerm);
-    if (searchTerm) console.log(searchTerm);
+    if (searchTerm) findMovies(searchTerm);
   }, [searchTerm]);
 
   return (
@@ -103,30 +79,28 @@ function App() {
             path='*'
             element={
               <>
-                <div>
-                  <SearchBar
-                    searchTerm={searchTerm}
-                    inputHandler={(value) => setSearchTerm(value)}
-                  />
-                  <MovieList
-                    movies={dummy}
-                    movie={(value) => setSelectedMovie(value)}
-                  />
-                </div>
+                <SearchBar
+                  searchTerm={searchTerm}
+                  inputHandler={(value) => setSearchTerm(value)}
+                />
+                <MovieList
+                  movies={searchedMovie}
+                  movie={(value) => setSelectedMovieID(value)}
+                />
               </>
             }
           />
           <Route
             path='my-movie'
-            element={<MyMovie movie={(value) => setSelectedMovie(value)} />}
+            element={<MyMovie movie={(value) => setSelectedMovieID(value)} />}
           />
           <Route
             path='movie-detail'
-            element={<MovieDetail detail={selectedMovie} />}
+            element={<MovieDetail movieID={selectedMovieID} />}
           />
           <Route
             path='my-movie/movie-detail'
-            element={<MovieDetail detail={selectedMovie} />}
+            element={<MovieDetail movieID={selectedMovieID} />}
           />
         </Routes>
       </Router>

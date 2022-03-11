@@ -9,6 +9,7 @@ const MyMovie = (props) => {
     margin: 10px 0;
     text-align: center;
     font-size: 24px;
+    color: white;
   `;
 
   const Button = styled.button`
@@ -17,33 +18,43 @@ const MyMovie = (props) => {
     border-radius: 5px;
   `;
 
-  const { deleteMovie, myMovieList } = useContext(GlobalContext);
+  const Container = styled.div`
+    /* background: black; */
+  `;
+
+  const { myMovieList } = useContext(GlobalContext);
 
   const handleClick = (event) => {
     props.movie(event);
+    console.log(event);
   };
 
   return (
-    <div>
+    <Container>
       <Header>My Movie List</Header>
       {myMovieList.length > 0 ? (
-        myMovieList.map((movie, id) => (
+        myMovieList.map((movie, imdbID) => (
           <>
-            <div key={id} style={{ display: "flex" }}>
+            <div
+              key={imdbID}
+              style={{ display: "flex", color: "white", width: "50%" }}
+            >
               <img
                 src={movie.Poster}
                 style={{ height: "300px" }}
                 alt={movie.title}
               ></img>
-              <div style={{ marginLeft: "10px" }}>
+              <div style={{ marginLeft: "10px", color: "white" }}>
                 <h3>{movie.Title}</h3>
-                <h3>{movie.year}</h3>
-                <p>{movie.description}</p>
+                <h3>{movie.Year}</h3>
+                <p>{movie.Plot}</p>
               </div>
             </div>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
               <Link to='movie-detail'>
-                <Button onClick={() => handleClick(movie)}>View Detail</Button>
+                <Button onClick={() => handleClick(movie.imdbID)}>
+                  View Detail
+                </Button>
               </Link>
             </div>
           </>
@@ -51,7 +62,7 @@ const MyMovie = (props) => {
       ) : (
         <Header>No Movies</Header>
       )}
-    </div>
+    </Container>
   );
 };
 

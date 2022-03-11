@@ -9,7 +9,7 @@ export default (state, action) => {
       return {
         ...state,
         myMovieList: state.myMovieList.filter(
-          (movie) => movie.id !== action.payload
+          (movie) => movie.imdbID !== action.payload
         ),
       };
     default:

@@ -12,14 +12,27 @@ const MyMovie = (props) => {
     color: white;
   `;
 
+  const Container = styled.div`
+    width: 50%;
+    margin: auto;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  `;
+
   const Button = styled.button`
+    margin-top: 10px;
     width: 150px;
     height: 35px;
     border-radius: 5px;
   `;
 
-  const Container = styled.div`
-    /* background: black; */
+  const MovieContainer = styled.div`
+    display: flex;
+    color: white;
+    width: 85%;
+    margin: auto;
   `;
 
   const { myMovieList } = useContext(GlobalContext);
@@ -35,21 +48,17 @@ const MyMovie = (props) => {
       {myMovieList.length > 0 ? (
         myMovieList.map((movie, imdbID) => (
           <>
-            <div
-              key={imdbID}
-              style={{ display: "flex", color: "white", width: "50%" }}
-            >
+            <MovieContainer key={imdbID}>
               <img
                 src={movie.Poster}
                 style={{ height: "300px" }}
                 alt={movie.title}
               ></img>
-              <div style={{ marginLeft: "10px", color: "white" }}>
+              <div style={{ color: "white", margin: "auto auto auto 30px" }}>
                 <h3>{movie.Title}</h3>
                 <h3>{movie.Year}</h3>
-                <p>{movie.Plot}</p>
               </div>
-            </div>
+            </MovieContainer>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
               <Link to='movie-detail'>
                 <Button onClick={() => handleClick(movie.imdbID)}>

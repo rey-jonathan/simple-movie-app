@@ -1,26 +1,30 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import styled from "@emotion/styled";
 
 import MovieDetail from "./MovieDetail";
 
 const MovieList = (props) => {
+  console.log(props.totalPage);
   const TitleMenu = styled.div`
     text-align: center;
-    font-size: 24px;
+    font-size: 30px;
     color: #ffffff;
+    font-weight: 300;
   `;
 
   const MovieContainer = styled.div`
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    margin: 20px 0 0 10px;
+    margin: auto;
     color: white;
     padding: 10px;
+    width: 50%;
+    flex-direction: column;
 
-    @media (min-width: 412px;) {
+    @media (max-width: 420px) {
+      width: 85%;
     }
   `;
 
@@ -30,21 +34,72 @@ const MovieList = (props) => {
   `;
 
   const Image = styled.img`
-    width: 100px;
+    width: 250px;
+    margin-right: 10px;
+
+    @media (min-width: 500px) {
+      margin: auto;
+    }
   `;
 
   const Metadata = styled.div`
     margin-left: 10px;
     color: #ffffff;
+    text-align: left;
+
+    @media (max-width: 500px) {
+      width: 360px;
+    }
+
+    @media (min-width: 768px) {
+      width: 350px;
+    } ;
+  `;
+
+  const ButtonContainer = styled.div`
+    margin: auto;
+
+    @media (min-width: 1200px) {
+      padding-top: 15px;
+    }
+  `;
+
+  const NavButton = styled.div`
+    margin: auto;
+    text-align: center;
   `;
 
   const handleClick = (event) => {
     props.movie(event.imdbID);
   };
 
+  const onClickNext = () => {
+    props.onClickNext();
+  };
+
+  const onClickBack = () => {
+    props.onClickBack();
+  };
+
   return (
     <>
       <TitleMenu>Movie List</TitleMenu>
+      {props.movies ? (
+        <NavButton>
+          <button disabled={props.currentPage === 1} onClick={onClickBack}>
+            Back
+          </button>
+          <span style={{ color: "white" }}>{props.currentPage}</span>
+          <button
+            disabled={props.currentPage === props.totalPage}
+            onClick={onClickNext}
+          >
+            Next
+          </button>
+        </NavButton>
+      ) : (
+        ""
+      )}
       {props.movies
         ? props.movies.map((movie, id) => (
             <MovieContainer key={id}>
@@ -52,15 +107,23 @@ const MovieList = (props) => {
               <Metadata>
                 <h3>{movie.Title}</h3>
                 <h4>Type: {movie.Type}</h4>
-                <h5>Year: {movie.Year}</h5>
+                <h4>Year: {movie.Year}</h4>
               </Metadata>
-              <div>
+              <ButtonContainer>
                 <Link to='movie-detail'>
-                  <button onClick={() => handleClick(movie)}>
+                  <button
+                    style={{
+                      border: "1px solid pink",
+                      background: "pink",
+                      width: "150px",
+                      color: "white",
+                    }}
+                    onClick={() => handleClick(movie)}
+                  >
                     View Detail
                   </button>
                 </Link>
-              </div>
+              </ButtonContainer>
             </MovieContainer>
           ))
         : ""}

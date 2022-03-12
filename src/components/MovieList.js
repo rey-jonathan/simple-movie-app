@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
 // import styled
-import { ButtonDetail, Image } from "./styled";
+import { ButtonDetail, Image, Metadata, MovieContainer } from "./styled";
 
 // import images/assets
 import placeholder from "../assets/placeholder.png";
@@ -17,38 +17,6 @@ const MovieList = (props) => {
     font-size: 30px;
     color: #ffffff;
     font-weight: 300;
-  `;
-
-  const MovieContainer = styled.div`
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
-    margin: auto;
-    color: white;
-    padding: 15px;
-    flex-direction: column;
-
-    @media (max-width: 420px) {
-      width: 85%;
-    }
-
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
-  `;
-
-  const Metadata = styled.div`
-    color: #ffffff;
-    text-align: left;
-
-    @media (min-width: 500px) {
-      width: 360px;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      width: 350px;
-    } ;
   `;
 
   const ButtonContainer = styled.div`

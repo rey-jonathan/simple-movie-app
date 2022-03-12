@@ -63,10 +63,14 @@ function App() {
       <Router>
         <MenuBar>
           <label>
-            <Link to="/">Movie List</Link>
+            <Link style={{ color: "white", fontSize: "20px" }} to="/">
+              Movie List
+            </Link>
           </label>
           <label>
-            <Link to="/my-movie">My Movie</Link>
+            <Link style={{ color: "white", fontSize: "20px" }} to="/my-movie">
+              My Movie
+            </Link>
           </label>
         </MenuBar>
 

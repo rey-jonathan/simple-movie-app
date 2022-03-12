@@ -7,37 +7,23 @@ import styled from "@emotion/styled";
 import { GlobalContext } from "../context/GlobalState";
 
 // import styled
-import { ButtonDetail, Image } from "./styled";
+import { ButtonDetail, Image, Metadata, MovieContainer } from "./styled";
 
 /**
  * @desc Function to show list of movie that has been added to my list
  */
 const MyMovie = (props) => {
-  const Header = styled.div`
-    margin: 10px 0;
+  const TitleMenu = styled.div`
     text-align: center;
-    font-size: 24px;
-    color: white;
-  `;
-
-  const Container = styled.div`
-    width: 50%;
-    margin: auto;
-
-    @media (max-width: 640px) {
-      width: 100%;
-    }
-  `;
-
-  const MovieContainer = styled.div`
-    display: flex;
-    color: white;
-    width: 85%;
-    margin: auto;
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: 300;
+    padding-top: 15px;
   `;
 
   // get list of movies that has been added to movie list
   const { myMovieList } = useContext(GlobalContext);
+  console.log(myMovieList);
 
   /**
    * @desc Function to handle callback, and passed it to parent component (App)
@@ -48,8 +34,8 @@ const MyMovie = (props) => {
   };
 
   return (
-    <Container>
-      <Header>My Movie List</Header>
+    <>
+      <TitleMenu>My Movie List</TitleMenu>
       {myMovieList.length > 0 ? (
         myMovieList.map((movie, imdbID) => (
           <>
@@ -59,10 +45,10 @@ const MyMovie = (props) => {
                 style={{ height: "215px" }}
                 alt={movie.title}
               ></Image>
-              <div style={{ color: "white", margin: "auto auto auto 30px" }}>
+              <Metadata>
                 <h3>{movie.Title}</h3>
                 <h3>{movie.Year}</h3>
-              </div>
+              </Metadata>
             </MovieContainer>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
               <Link to="movie-detail">
@@ -74,9 +60,9 @@ const MyMovie = (props) => {
           </>
         ))
       ) : (
-        <Header>No Movies</Header>
+        <TitleMenu>No Movies</TitleMenu>
       )}
-    </Container>
+    </>
   );
 };
 

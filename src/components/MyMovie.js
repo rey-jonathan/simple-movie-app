@@ -23,7 +23,6 @@ const MyMovie = (props) => {
 
   // get list of movies that has been added to movie list
   const { myMovieList } = useContext(GlobalContext);
-  console.log(myMovieList);
 
   /**
    * @desc Function to handle callback, and passed it to parent component (App)

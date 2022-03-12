@@ -1,9 +1,17 @@
+// import library
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
+// import context
 import { GlobalContext } from "../context/GlobalState";
 
+// import styled
+import { ButtonDetail, Image } from "./styled";
+
+/**
+ * @desc Function to show list of movie that has been added to my list
+ */
 const MyMovie = (props) => {
   const Header = styled.div`
     margin: 10px 0;
@@ -21,13 +29,6 @@ const MyMovie = (props) => {
     }
   `;
 
-  const Button = styled.button`
-    margin-top: 10px;
-    width: 150px;
-    height: 35px;
-    border-radius: 5px;
-  `;
-
   const MovieContainer = styled.div`
     display: flex;
     color: white;
@@ -35,11 +36,15 @@ const MyMovie = (props) => {
     margin: auto;
   `;
 
+  // get list of movies that has been added to movie list
   const { myMovieList } = useContext(GlobalContext);
 
+  /**
+   * @desc Function to handle callback, and passed it to parent component (App)
+   * @param {event} - object
+   */
   const handleClick = (event) => {
     props.movie(event);
-    console.log(event);
   };
 
   return (
@@ -49,21 +54,21 @@ const MyMovie = (props) => {
         myMovieList.map((movie, imdbID) => (
           <>
             <MovieContainer key={imdbID}>
-              <img
+              <Image
                 src={movie.Poster}
-                style={{ height: "300px" }}
+                style={{ height: "215px" }}
                 alt={movie.title}
-              ></img>
+              ></Image>
               <div style={{ color: "white", margin: "auto auto auto 30px" }}>
                 <h3>{movie.Title}</h3>
                 <h3>{movie.Year}</h3>
               </div>
             </MovieContainer>
             <div style={{ textAlign: "center", marginTop: "10px" }}>
-              <Link to='movie-detail'>
-                <Button onClick={() => handleClick(movie.imdbID)}>
+              <Link to="movie-detail">
+                <ButtonDetail onClick={() => handleClick(movie.imdbID)}>
                   View Detail
-                </Button>
+                </ButtonDetail>
               </Link>
             </div>
           </>

@@ -1,8 +1,16 @@
+// import library
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
+// import styled
+import { ButtonDetail, Image } from "./styled";
+
+// import images/assets
 import placeholder from "../assets/placeholder.png";
 
+/**
+ * @desc Display list of movies after enter search value
+ */
 const MovieList = (props) => {
   const TitleMenu = styled.div`
     text-align: center;
@@ -18,7 +26,6 @@ const MovieList = (props) => {
     margin: auto;
     color: white;
     padding: 15px;
-    width: 50%;
     flex-direction: column;
 
     @media (max-width: 420px) {
@@ -27,15 +34,6 @@ const MovieList = (props) => {
 
     @media (min-width: 768px) {
       flex-direction: row;
-    }
-  `;
-
-  const Image = styled.img`
-    width: 250px;
-    margin-right: 10px;
-
-    @media (min-width: 500px) {
-      margin: auto;
     }
   `;
 
@@ -70,6 +68,10 @@ const MovieList = (props) => {
     }
   `;
 
+  /**
+   * @desc Function to handle callback, and passed it to parent component (App)
+   * @param {event} - object
+   */
   const handleClick = (event) => {
     props.movie(event.imdbID);
   };
@@ -86,18 +88,25 @@ const MovieList = (props) => {
     <>
       <TitleMenu>Movie List</TitleMenu>
       {props.movies ? (
-        <NavButton>
-          <button disabled={props.currentPage === 1} onClick={onClickBack}>
-            Back
-          </button>
-          <span style={{ color: "white" }}>{props.currentPage}</span>
-          <button
-            disabled={props.currentPage === props.totalPage}
-            onClick={onClickNext}
+        <>
+          <NavButton>
+            <button disabled={props.currentPage === 1} onClick={onClickBack}>
+              Back
+            </button>
+            <span style={{ color: "white" }}>{props.currentPage}</span>
+            <button
+              disabled={props.currentPage === props.totalPage}
+              onClick={onClickNext}
+            >
+              Next
+            </button>
+          </NavButton>
+          <div
+            style={{ color: "white", textAlign: "center", fontWeight: "300" }}
           >
-            Next
-          </button>
-        </NavButton>
+            Results: {props.totalResults}
+          </div>
+        </>
       ) : (
         ""
       )}
@@ -105,8 +114,9 @@ const MovieList = (props) => {
         ? props.movies.map((movie, id) => (
             <MovieContainer key={id}>
               <Image
-                src={movie.Poster === "N/A" ? placeholder : movie.Poster}
+                src={movie.Poster === "N/A" ? placeholder : movie.Poster} //add placeholder if poster return N/A
                 alt={movie.Title}
+                width="250px"
               />
               <Metadata>
                 <h3>{movie.Title}</h3>
@@ -114,18 +124,10 @@ const MovieList = (props) => {
                 <h4>Year: {movie.Year}</h4>
               </Metadata>
               <ButtonContainer>
-                <Link to='movie-detail'>
-                  <button
-                    style={{
-                      border: "1px solid pink",
-                      background: "pink",
-                      width: "150px",
-                      color: "white",
-                    }}
-                    onClick={() => handleClick(movie)}
-                  >
+                <Link to="movie-detail">
+                  <ButtonDetail onClick={() => handleClick(movie)}>
                     View Detail
-                  </button>
+                  </ButtonDetail>
                 </Link>
               </ButtonContainer>
             </MovieContainer>

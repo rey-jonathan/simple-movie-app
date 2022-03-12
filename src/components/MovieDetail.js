@@ -30,7 +30,7 @@ const MovieDetail = ({ movieID }) => {
    * @returns JSON details of movie
    */
   const findMovieDetail = async (movieID) => {
-    const url = `http://www.omdbapi.com/?i=${movieID}&apikey=9fd56b29`;
+    const url = `/api/?i=${movieID}&apikey=9fd56b29`;
 
     await axios.get(url).then((res) => {
       setMovieDetail(res.data);

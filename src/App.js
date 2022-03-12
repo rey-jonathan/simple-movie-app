@@ -35,7 +35,7 @@ function App() {
    * @returns JSON list of movies, save it to state
    */
   const findMovies = async (searchTerm, page) => {
-    const url = `http://www.omdbapi.com/?s=${searchTerm}&apikey=9fd56b29&page=${page}`;
+    const url = `/api/?s=${searchTerm}&apikey=9fd56b29&page=${page}`;
 
     await axios
       .get(url)

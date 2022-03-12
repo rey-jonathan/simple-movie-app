@@ -1,5 +1,6 @@
 // import library
 import { createContext, useReducer, useEffect } from "react";
+import { toast } from "react-toastify";
 
 // import Reducer
 import AppReducer from "./AppReducer";
@@ -27,11 +28,13 @@ export const GlobalProvider = (props) => {
   //dispatch action to save movie data when user click "Add to List" button
   const addMovie = (movie) => {
     dispatch({ type: "ADD_MOVIE", payload: movie });
+    toast.success("Added to My List");
   };
 
   //dispatch action to remove movie from My Movie List, based on movieID / omdbID
   const deleteMovie = (id) => {
     dispatch({ type: "DELETE_MOVIE", payload: id });
+    toast.warn("Deleted");
   };
 
   return (

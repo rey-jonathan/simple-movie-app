@@ -63,12 +63,12 @@ function App() {
       <Router>
         <MenuBar>
           <label>
-            <Link style={{ color: "white", fontSize: "20px" }} to="/">
+            <Link style={{ color: "white", fontSize: "20px" }} to='/'>
               Movie List
             </Link>
           </label>
           <label>
-            <Link style={{ color: "white", fontSize: "20px" }} to="/my-movie">
+            <Link style={{ color: "white", fontSize: "20px" }} to='/my-movie'>
               My Movie
             </Link>
           </label>
@@ -77,7 +77,7 @@ function App() {
         <Routes>
           <Route
             exact
-            path="*"
+            path='*'
             element={
               <>
                 <SearchBar
@@ -97,15 +97,15 @@ function App() {
             }
           />
           <Route
-            path="my-movie"
+            path='my-movie'
             element={<MyMovie movie={(value) => setSelectedMovieID(value)} />}
           />
           <Route
-            path="movie-detail"
+            path='movie-detail'
             element={<MovieDetail movieID={selectedMovieID} />}
           />
           <Route
-            path="my-movie/movie-detail"
+            path='my-movie/movie-detail'
             element={<MovieDetail movieID={selectedMovieID} />}
           />
         </Routes>

@@ -34,7 +34,7 @@ export const GlobalProvider = (props) => {
   //dispatch action to remove movie from My Movie List, based on movieID / omdbID
   const deleteMovie = (id) => {
     dispatch({ type: "DELETE_MOVIE", payload: id });
-    toast.warn("Deleted");
+    toast.warn("Removed for My List");
   };
 
   return (

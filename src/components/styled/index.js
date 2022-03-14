@@ -11,8 +11,12 @@ export const Header = styled.div`
 export const MenuBar = styled.div`
   text-align: center;
 
-  & > label > :nth-of-type(1) {
+  & > :nth-child(1) {
     margin-right: 10px;
+  }
+
+  & > :nth-child(2) {
+    margin-left: 10px;
   }
 `;
 
@@ -30,6 +34,15 @@ export const ButtonRemove = styled.button`
   border-radius: 6px;
   color: white;
   background: red;
+  width: 150px;
+  height: 30px;
+`;
+
+export const ButtonAdd = styled.button`
+  border: ${(props) => props.border};
+  border-radius: 6px;
+  color: white;
+  background: ${(props) => props.background};
   width: 150px;
   height: 30px;
 `;

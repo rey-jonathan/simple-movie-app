@@ -15,7 +15,7 @@ import {
   ButtonRemove,
   MovieContainer,
   ButtonBack,
-  ButtonDetail,
+  ButtonAdd,
 } from "./styled";
 
 const MovieDetail = ({ movieID }) => {
@@ -61,12 +61,14 @@ const MovieDetail = ({ movieID }) => {
       );
     } else {
       return (
-        <ButtonDetail
+        <ButtonAdd
           disabled={checkMovie}
           onClick={() => addMovie(movieDetail)}
+          background={checkMovie ? "grey" : "pink"}
+          border={checkMovie ? "1px solid grey" : "1px solid pink"}
         >
           Add to list
-        </ButtonDetail>
+        </ButtonAdd>
       );
     }
   };
@@ -79,7 +81,7 @@ const MovieDetail = ({ movieID }) => {
         <>
           <MovieContainer>
             <ToastContainer
-              position="top-center"
+              position='top-center'
               autoClose={2000}
               hideProgressBar={false}
               newestOnTop={false}
@@ -101,7 +103,7 @@ const MovieDetail = ({ movieID }) => {
             </Metadata>
           </MovieContainer>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link to="/">
+            <Link to='/'>
               <ButtonBack style={{ marginRight: "10px" }}>Back</ButtonBack>
             </Link>
             {buttonLogic()}
